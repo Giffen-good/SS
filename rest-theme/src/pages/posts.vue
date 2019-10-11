@@ -59,8 +59,10 @@ export default {
       document.querySelector(".loader").classList.add("fadeout");
     }, 1000);
     // for Slideshow
+    this.$nextTick(() => {
+
     this.$forceUpdate();
-     
+    });     
   },
 
   methods: {
@@ -338,9 +340,8 @@ export default {
     }
   },
   updated() {
-    this.$nextTick(() => {
         this.constructSlideshow();
-      });
+    
    
   }
 }
