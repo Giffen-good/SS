@@ -400,7 +400,6 @@ export default {
   updated() {
     this.$nextTick(() => {
      this.constructSlideshow();
-      document.body.dispatchEvent(new Event('scroll'));
     })
   }
 }
