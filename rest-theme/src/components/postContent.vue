@@ -59,7 +59,7 @@ export default {
             height: 59vw;
     max-height: 80vh;
     }
-    ul.columns-2 {
+    ul.columns-2, figure.columns-2  {
         width:80vw;
         margin:0 auto;
         margin-bottom: 5rem;
@@ -86,7 +86,7 @@ export default {
         & > figure, & > ul, & > div{
             margin-bottom:4rem;
         }
-         ul.columns-2 {
+         ul.columns-2, figure.columns-2  {
              margin-bottom:4rem;
              width:86vw;
            li:first-child {

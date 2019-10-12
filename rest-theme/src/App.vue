@@ -9,6 +9,11 @@
 import WordpressService from './services/wordpress';
 export default {
     name: "app",
+    methods: {
+         onChangePage(to) {
+             
+         }
+    }
 }
 </script>
 <style lang="scss">

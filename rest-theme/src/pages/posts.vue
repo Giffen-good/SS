@@ -4,11 +4,13 @@
   <main class="content Dcolor">
     <div v-if="!isLoading">
       <div id="overflowing-gradient" class="Dcolor">
+        <div class="gradient arrow prev gradient-left"></div>
+        <div class="gradient arrow next gradient-right"></div>
         <div id="fixedHeader" class="x xac">
           <div class="feature-nav dib first-el"></div>
           <div
-            class="feature-nav dib"
-            v-for="post in regPosts"
+            :class="`feature-nav dib category_${key}`"
+            v-for="(post, key) in regPosts"
             :id="`index-${post.id}`"
             :key="post.id"
           >
@@ -29,7 +31,7 @@
           v-for="(post, key ) in posts"
           :post="post"
           :key="key"
-          :id="`category-${key}`"
+          :id="`category_${key}`"
           :class="`postEl category dt ${(key % 2 == 0) ?  'even' :  'odd' } index-${post.ID}`"
           :data-src="post.post_title"
         ></Post>
@@ -59,10 +61,7 @@ export default {
       document.querySelector(".loader").classList.add("fadeout");
     }, 1000);
     // for Slideshow
-    this.$nextTick(() => {
-
-    this.$forceUpdate();
-    });     
+      this.$forceUpdate();
   },
 
   methods: {
@@ -124,17 +123,20 @@ export default {
       var postContainers = document.getElementsByClassName("postEl");
       var masterContainer = {
         //scroll OBJ where each section is a property
-        // category-0:[width, distance from top]
+        // category_0:[width, distance from top, 0, index-{post.id}]
         // ...
-        // category-n:[width, distance from top]
+        // category_n:[width, distance from top, n, index-{post.id}]
       };
 
       function name(i) {
         // returns unique section ID
-        return "category-" + i;
+        return "category_" + i;
       }
-
+      function modName(i) {
+        return "category_" + i;
+      }
       var elDimensions;
+      
       // Get
       (elDimensions = function() {
         let largestContainer = document.querySelector("#largest-container");
@@ -165,7 +167,7 @@ export default {
           document.getElementById(name(i)).style.top = masterHeight + "px";
           // DEFINING THE PROPERTIES OF THE MAIN OBJECT
           masterContainer.sumTotal = i;
-          masterContainer[name(i)] = [containerWidth, masterHeight, i];
+          masterContainer[modName(i)] = [containerWidth, masterHeight, i];
           masterHeight += containerWidth;
           // Set initial transform property for Right-to-left (every other post) posts
           if (i % 2 != 0) {
@@ -177,8 +179,12 @@ export default {
         }
         //Splash page justifies the - window.innerHeight
         largestContainer.style.height =
-          masterHeight - window.innerHeight + "px";
+          masterHeight+ "px";
         // initial scroll position
+        
+        resetPostTrans();
+      })();
+      function resetPostTrans() {
         var scrollPos =
           window.pageYOffset ||
           document.documentElement.scrollTop ||
@@ -194,10 +200,41 @@ export default {
               "px, 0, 0)";
           }
         }
-      })();
+      }
+      let gradient = document.querySelectorAll('.gradient');
+          var objectLength = 0;
+      for (var k in masterContainer) {
+          if (masterContainer.hasOwnProperty(k)) {
+            ++objectLength;
+          }
+      }
+      function shiftSlide(newVal) {
+           
+            let top = masterContainer[modName(newVal)][1];
+            document.documentElement.scrollTop = document.body.scrollTop = top+2;
+             removeAll( 'active', actArray );
+            document.getElementById(name(newVal)).classList.add('active');
+      }
+      for (let i = 0; i< gradient.length; i++) {
+        gradient[i].addEventListener('click',function() {
+          let id = document.querySelector('.category.active') ? document.querySelector('.category.active').id : document.querySelector('.category.interim').id;
+          let index = parseInt(id.split('_')[1]);
 
+         if ( i == 0 && index != 0 ) {
+
+             let newIndex = (index - 1);
+            shiftSlide(newIndex)
+            shiftCarousel(newIndex);
+            
+          }
+          if (i == 1 && index != objectLength-2){
+            let newIndex = (index + 1);
+            shiftSlide(newIndex)
+            shiftCarousel(newIndex);
+          }
+        })
+      }
       // Text slideshow that changes according to the active post
-
       var actArray = document.getElementsByClassName("active");
       var intArray = document.getElementsByClassName("interim");
       var fixedHeader = document.getElementById("fixedHeader");
@@ -219,6 +256,8 @@ export default {
         if (raf) {
           // Recalculate Image and container dimensions
           elDimensions();
+        resetPostTrans();
+
         }
         clearTimeout(resizeTimer);
         // Debouncing function
@@ -231,13 +270,14 @@ export default {
         }, 250);
       });
 
-      function checkVerticalArea(scrollPos) {
-        for (let i = masterContainer.sumTotal; i >= 0; i--) {
-          //INCREMENTING backwards
-          let diff = masterContainer[name(i)][1] - scrollPos;
-          if (diff <= 0) {
-            let catClasses = document.getElementById(name(i)).classList;
+      function shiftCarousel(i) {
+          let catClasses = document.getElementById(name(i)).classList;
             let j = catClasses.length - 1;
+            for (let k = 0; k<catClasses.length;k++) {
+              if(catClasses[k].split("-")[0] === "index") {
+                j = k;
+              }
+            }
             if (
               catClasses[j].split("-")[0] === "index" &&
               !document
@@ -275,6 +315,18 @@ export default {
                 .classList.add("active-carousel");
             }
 
+      }
+
+
+
+      function checkVerticalArea(scrollPos) {
+        for (let i = masterContainer.sumTotal; i >= 0; i--) {
+          //INCREMENTING backwards
+          let diff = masterContainer[modName(i)][1] - scrollPos;
+          if (diff <= 0) {
+            shiftCarousel(i);
+            resetPostTrans();
+
             return [i, diff];
           }
         }
@@ -300,19 +352,25 @@ export default {
         // CURRENT POST META
         let elMeta = checkVerticalArea(scrollPos);
         // get Current post properties
-        const objArray = masterContainer[name(elMeta[0])];
+        const objArray = masterContainer[modName(elMeta[0])];
         //Change in active element
         if (Math.abs(elMeta[1]) > objArray[0] - window.innerHeight) {
           removeAll("active", actArray);
 
           // vertical scrolling state between elements
           document.getElementById(name(elMeta[0])).classList.add("interim");
+        resetPostTrans();
+
+
         } else {
           //START of new Current post
           if (actArray.length > 1) {
             actArray[0].classList.remove("active");
+
           }
 
+          document
+            .getElementById(name(elMeta[0])).classList.add('active');
           document
             .getElementById(name(elMeta[0]))
             .firstElementChild.classList.add("active");
@@ -340,9 +398,10 @@ export default {
     }
   },
   updated() {
-        this.constructSlideshow();
-    
-   
+    this.$nextTick(() => {
+     this.constructSlideshow();
+      document.body.dispatchEvent(new Event('scroll'));
+    })
   }
 }
 </script>

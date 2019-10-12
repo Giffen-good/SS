@@ -11,9 +11,13 @@ html {font-size: 16px}
 #app {
 	font-family: "NeueHaas", sans-serif;
 	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x:hidden;
 	text-align: center;
 	color: #2c3e50;
+  }
+  #largest-container {
+    overflow-x: hidden;
   }
   /*!
    * small changes on the base of gr8.
@@ -23,7 +27,6 @@ html {font-size: 16px}
    */
   body {
     margin:0;
-    overflow-x:hidden;
 	font-family: "NeueHaas", sans-serif;
   line-height: 1.2rem;}
   .c{top:50%;left:50%;transform:translate(-50%, -50%)}
@@ -59,7 +62,7 @@ html {font-size: 16px}
 	  object-fit: cover;
 	  margin:0 40px;
   
-   height:65vh;
+   height:60vh;
    
   }
   .little-container div:first-child .img-obj {
@@ -1061,7 +1064,7 @@ li:last-child .nav-link {
 
 .gradient {
   position: fixed;
-  height: 260px;
+  height: 160px;
   width:40%;
 
   width:calc(46% - 140px);
@@ -1248,16 +1251,34 @@ a {
 
 
 
+#mainPostArea ul.columns-2 li:first-child {
+  padding-right: 3.5rem;
+}
 
+#mainPostArea ul.columns-2.offset-right li:first-child {
+  padding-bottom: 5rem;
+}
+.wp-block-gallery .blocks-gallery-item {
+  width: 50%;
+  box-sizing: border-box;
+  margin-right: 0;
+}
 
+#mainPostArea figure.columns-2 li:last-child {
+  padding-left: 3.5rem;
+}
 
-
-
-
-
-
-
-
+#mainPostArea figure.columns-2.offset-right li:last-child {
+  padding-top: 8rem;
+}
+#mainPostArea figure.columns-2 {
+  width: 80vw;
+  margin: 0 auto;
+  margin-bottom: 5rem;
+}
+#mainPostArea > figure, #mainPostArea > ul, #mainPostArea > div, #mainPostArea > p {
+  margin-bottom: 5rem;
+}
 
 
 
