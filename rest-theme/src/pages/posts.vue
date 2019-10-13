@@ -174,6 +174,9 @@ export default {
         // start at one because first node is fixedHeader
         const imgMargin = parseInt(window.getComputedStyle(document.querySelector('.post-img')).marginRight);
         for (let i = 0; i < postContainers.length; i++) {
+          postContainers[i].firstElementChild.ontouchstart = (e) => {
+            e.preventDefault();
+          };
           let curr = postContainers[i].getElementsByClassName("post-img");
           let containerWidth = 0; //initial container width
 
