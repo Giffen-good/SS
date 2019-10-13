@@ -31,7 +31,7 @@
             :id="`category_${key}`"
           v-for="(post, key ) in posts"
           :key="key"
-          :class="`postEl category dt ${(key % 2 == 0) ?  'even' :  'odd' } index-${post.ID}`"
+          :class="`postEl category ${(key % 2 == 0) ?  'even' :  'odd' } index-${post.ID}`"
           :data-src="post.post_title">
             <div class="fixedEl">
                   <div class="little-container dtc vam" >
@@ -225,7 +225,7 @@ export default {
           //set posts to their "completed state" if the initial scroll position is past the post element
           if (masterContainer[prop][2] % 2 == 0 && isPast) {
 
-            document.getElementById(prop).firstElementChild.style.transform =
+            document.getElementById(prop).firstElementChild.firstElementChild.style.transform =
               "translate3d(-" +
               (masterContainer[prop][0] - window.innerWidth) +
               "px, 0, 0)";
@@ -250,7 +250,7 @@ export default {
             var transX = masterContainer[prop][0] - window.innerWidth;
           }
         }  
-         document.getElementById(prop).firstElementChild.style.transform = "translate3d(-" + transX + "px, 0, 0)"
+         document.getElementById(prop).firstElementChild.firstElementChild.style.transform = "translate3d(-" + transX + "px, 0, 0)"
       }
 
       function shiftSlide(newVal) {
@@ -377,7 +377,6 @@ export default {
                 carouselMargin = 10;
                 translationX =[ 0.5*(3*txtElWidth - window.innerWidth) + carouselMargin*3]*(-1) - i*(txtElWidth + carouselMargin*2);
               }
-
                 fixedHeader.style.transform =
                 "translate3d(" + translationX + "px, 0, 0)";
               const featureNav = document.querySelectorAll(".feature-nav");
@@ -420,15 +419,7 @@ export default {
           i++;
         }
       }
-var docWidth = document.documentElement.offsetWidth;
-[].forEach.call(
-  document.querySelectorAll('*'),
-  function(el) {
-    if (el.offsetWidth > docWidth) {
-      console.log(el);
-    }
-  }
-);
+
       //IIFE & triggered onscroll
       var activeElementTracking;
       (activeElementTracking = function() {
@@ -471,12 +462,12 @@ var docWidth = document.documentElement.offsetWidth;
           if (objArray[2] % 2 == 0) {
             document.getElementById(
               name(elMeta[0])
-            ).firstElementChild.style.transform =
+            ).firstElementChild.firstElementChild.style.transform =
               "translate3d(-" + Math.abs(b * elMeta[1]) + "px, 0, 0)";
           } else {
             document.getElementById(
               name(elMeta[0])
-            ).firstElementChild.style.transform =
+            ).firstElementChild.firstElementChild.style.transform =
               "translate3d(-" +
               (objArray[0] - window.innerWidth - Math.abs(b * elMeta[1])) +
               "px, 0, 0)";
@@ -493,4 +484,7 @@ var docWidth = document.documentElement.offsetWidth;
 }
 </script>
 <style lang="scss" >
+* {
+  max-width:100vw;
+}
 </style>

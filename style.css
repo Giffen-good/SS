@@ -48,7 +48,7 @@ body, html {overflow-x: hidden; max-width: 100%}
   a:hover .hov2 {
 	  opacity:0.25;
   }
-  .fixedEl { height:100vh; position:absolute; bottom:0; display:table; }
+  .fixedEl { height:100vh; position:absolute; bottom:0; display:flex;align-items: center }
   .active:not(li) {
 	  will-change: transform;
 	  position:fixed;
@@ -1055,12 +1055,16 @@ li:last-child .nav-link {
 
 .little-container.vam {
 	vertical-align: middle;
+  display: block;
+  max-width: initial;
+
 }
 .Pinyon {
 	font-family:"Pinyon";
 }
 #fixedHeader {
-	z-index:2;
+  z-index:2;
+  max-width: initial;
   min-height:160px;
   -webkit-transition:-webkit-transform 0.35s;
   transition:-webkit-transform 0.35s;
