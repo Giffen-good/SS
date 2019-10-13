@@ -418,7 +418,15 @@ export default {
           i++;
         }
       }
-
+var docWidth = document.documentElement.offsetWidth;
+[].forEach.call(
+  document.querySelectorAll('*'),
+  function(el) {
+    if (el.offsetWidth > docWidth) {
+      console.log(el);
+    }
+  }
+);
       //IIFE & triggered onscroll
       var activeElementTracking;
       (activeElementTracking = function() {
@@ -427,6 +435,7 @@ export default {
           document.documentElement.scrollTop ||
           document.body.scrollTop ||
           0;
+          console.log(window.scrollLeft)
             window.scrollLeft = 0;
         // CURRENT POST META
         let elMeta = checkVerticalArea(scrollPos);
