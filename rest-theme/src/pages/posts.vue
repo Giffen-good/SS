@@ -187,7 +187,6 @@ export default {
           // The "overflowing" div holding all the imgs. Set height based on img widths
           let fixedEl = postContainers[i].firstElementChild;
           fixedEl.style.width = containerWidth + "px";
-          postContainers[i].style.width = containerWidth + "px";
           postContainers[i].firstElementChild.style.width =
             containerWidth + "px";
 

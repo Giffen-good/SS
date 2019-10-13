@@ -30,13 +30,13 @@ body, html {overflow-x: hidden; max-width: 100%}
     margin:0;
 	font-family: "NeueHaas", sans-serif;
   line-height: 1.2rem;}
-  .c{top:50%;left:50%;transform:translate(-50%, -50%)}
-  .cy{top:50%;transform:translateY(-50%)}
-  .cx{left:50%;transform: translateX(-50%)}
-  .inv{filter:invert(100%)}
+  .c{top:50%;left:50%;-webkit-transform:translate(-50%, -50%);-ms-transform:translate(-50%, -50%);transform:translate(-50%, -50%)}
+  .cy{top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}
+  .cx{left:50%;-webkit-transform: translateX(-50%);-ms-transform: translateX(-50%);transform: translateX(-50%)}
+  .inv{-webkit-filter:invert(100%);filter:invert(100%)}
   .bgc1{background-color:#252525;}
   .el1{max-height:700px;margin:0 25px;}
-  .ofc{object-fit:cover;}
+  .ofc{-o-object-fit:cover;object-fit:cover;}
   img:hover + .hov, .hov:hover {
 	  opacity:1;
   }
@@ -64,7 +64,8 @@ body, html {overflow-x: hidden; max-width: 100%}
   .img-obj {
 	  max-width:60vw;
 	  max-width: 1000px;
-	  object-fit: cover;
+	  -o-object-fit: cover;
+	     object-fit: cover;
 	  margin:0 40px;
   
    height:50vh;
@@ -79,7 +80,7 @@ body, html {overflow-x: hidden; max-width: 100%}
   .little-container div:first-child .img-obj {
     margin-left:80px;
   }
-  #fixedHeader {transform:translateZ(0);position: fixed;bottom: 0;}
+  #fixedHeader {-webkit-transform:translateZ(0);transform:translateZ(0);position: fixed;bottom: 0;}
   h1,h2,h3,h4,h5,h6,header {
 	  font-size:1rem;
   }
@@ -660,7 +661,7 @@ body, html {overflow-x: hidden; max-width: 100%}
 [sm~="ofc"]{-o-object-fit: cover;object-fit: cover;}
 [sm~="bts"]{border-top: solid 1px;}
 [sm~="fsB"]{font-size:3rem;}
-[sm~="cback"]{transform: initial}
+[sm~="cback"]{-webkit-transform: initial;-ms-transform: initial;transform: initial}
 [sm~="reverso"]{margin-top:-5px}
 
 }
@@ -974,7 +975,9 @@ body, html {overflow-x: hidden; max-width: 100%}
 	  list-style-type:none;
   }
   nav.x {
-	  justify-content: center;
+	  -webkit-box-pack: center;
+	      -ms-flex-pack: center;
+	          justify-content: center;
 	  padding: 0 1rem;
 
   }
@@ -988,7 +991,9 @@ body, html {overflow-x: hidden; max-width: 100%}
 	  padding-left: 0;
 	  text-align: right;
 	  margin-bottom:0;
-	  justify-content: flex-end
+	  -webkit-box-pack: end;
+	      -ms-flex-pack: end;
+	          justify-content: flex-end
   }
   nav.x p {
 	  width:100%;
@@ -1006,16 +1011,23 @@ li:last-child .nav-link {
 	padding-right:0;
 }
   nav.x > h1,nav.x > h2, nav.x > div, nav.x ul {
-	  flex:1 1 33%;
+	  -webkit-box-flex:1;
+	      -ms-flex:1 1 33%;
+	          flex:1 1 33%;
+	  display:-webkit-box;
+	  display:-ms-flexbox;
 	  display:flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     margin-top:0;
   }
   nav.x > a {
     padding:8px 0;
   }
 	nav.x > div {
-		flex-shrink:0;
+		-ms-flex-negative:0;
+		    flex-shrink:0;
   }
   nav.x > h1, nav.x > h2 {
     margin-bottom: 5px;
@@ -1049,7 +1061,11 @@ li:last-child .nav-link {
 #fixedHeader {
 	z-index:2;
   min-height:160px;
+  -webkit-transition:-webkit-transform 0.35s;
+  transition:-webkit-transform 0.35s;
+  -o-transition:transform 0.35s;
   transition:transform 0.35s;
+  transition:transform 0.35s, -webkit-transform 0.35s;
 }
 #fixedHeader .Pinyon {
 	font-size:3.3rem;
@@ -1079,7 +1095,8 @@ li:last-child .nav-link {
   width:40%;
 
   width:calc(46% - 140px);
-  transform:translateZ(0);
+  -webkit-transform:translateZ(0);
+          transform:translateZ(0);
   bottom:0;
   z-index: 3;
 }
@@ -1142,7 +1159,11 @@ h6 {margin-bottom:4px}
   position: fixed;
   width:100vw;
   height:100vh;
+  -webkit-transition:-webkit-transform 1s;
+  transition:-webkit-transform 1s;
+  -o-transition:transform 1s;
   transition:transform 1s;
+  transition:transform 1s, -webkit-transform 1s;
   top:0;
   
 }
@@ -1150,10 +1171,14 @@ h6 {margin-bottom:4px}
   top: 50%;
   text-align: center;
   left:50%;
-  transform: translate(-50%,-50%)
+  -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%)
 }
 .loader.fadeout {
-  transform:translateY(-200vh)
+  -webkit-transform:translateY(-200vh);
+      -ms-transform:translateY(-200vh);
+          transform:translateY(-200vh)
 }
 .mw800.pb1 {
   padding-bottom:0.75rem
@@ -1198,6 +1223,8 @@ h6 {margin-bottom:4px}
      height: 158px;
      width: 100%;
      bottom: 0;
+       background:-webkit-gradient(linear, left bottom, left top, from(rgba(253, 201, 232, 1)),color-stop(60%, rgba(253, 201, 232, 1)),to(rgba(253, 201, 232, 0)));
+       background:-o-linear-gradient(bottom, rgba(253, 201, 232, 1) 0%,rgba(253, 201, 232, 1) 60%,rgba(253, 201, 232, 0) 100%);
        background:linear-gradient(to top, rgba(253, 201, 232, 1) 0%,rgba(253, 201, 232, 1) 60%,rgba(253, 201, 232, 0) 100%);
    background:var(--primary-color-rgba);
  
@@ -1258,6 +1285,8 @@ a {
 
 
 .dotted-line {
+  background-image: -webkit-gradient(linear, left top, right top, color-stop(33%, var(--secondary-color)), color-stop(0%, rgba(255,255,255,0)));
+  background-image: -o-linear-gradient(left, var(--secondary-color) 33%, rgba(255,255,255,0) 0%);
   background-image: linear-gradient(to right, var(--secondary-color) 33%, rgba(255,255,255,0) 0%);
   background-position: bottom;
   background-size: 6px 2px;
@@ -1277,7 +1306,8 @@ a {
 }
 .wp-block-gallery .blocks-gallery-item {
   width: 50%;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   margin-right: 0;
 }
 
