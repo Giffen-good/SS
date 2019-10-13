@@ -427,10 +427,7 @@ export default {
           document.documentElement.scrollTop ||
           document.body.scrollTop ||
           0;
-          var $body = document.body
-          if ($body.scrollLeft !== 0) {
-            $body.scrollLeft = 0;
-          }
+            window.scrollLeft = 0;
         // CURRENT POST META
         let elMeta = checkVerticalArea(scrollPos);
         // get Current post properties
