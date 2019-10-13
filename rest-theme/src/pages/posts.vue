@@ -77,8 +77,6 @@ export default {
       document.querySelector(".loader").classList.add("fadeout");
 
     }, 2000);
-    // for Slideshow
-      this.$forceUpdate();
   },
   
   methods: {
@@ -166,7 +164,7 @@ export default {
         return "category_" + i;
       }
       var elDimensions;
-      
+      var firstTime = true;
       // Get
       (elDimensions = function() {
 
@@ -202,11 +200,8 @@ export default {
           masterContainer[modName(i)] = [containerWidth, masterHeight, i];
           masterHeight += containerWidth;
           // Set initial transform property for Right-to-left (every other post) posts
-          if (i % 2 != 0) {
-            fixedEl.style.transform =
-              "translate3d(-" +
-              (containerWidth - window.innerWidth) +
-              "px, 0, 0)";
+          if (i % 2 != 0 && firstTime ) {
+            completedTransform(modName(i), false);
           }
         }
         largestContainer.style.height =
@@ -214,6 +209,8 @@ export default {
         
         resetPostTrans();
       })();
+            firstTime = false;
+
       function resetPostTrans() {
         var scrollPos =
           window.pageYOffset ||
@@ -240,6 +237,20 @@ export default {
             ++objectLength;
           }
       }
+
+      function completedTransform(prop, isZero = true, specified = null) {
+        if (isZero) {
+          var transX = 0;
+        } else {
+          if (specified != null) {
+            var transX = specified;
+          } else {
+            var transX = masterContainer[prop][0] - window.innerWidth;
+          }
+        }  
+         document.getElementById(prop).firstElementChild.style.transform = "translate3d(-" + transX + "px, 0, 0)"
+      }
+
       function shiftSlide(newVal) {
            
             let top = masterContainer[modName(newVal)][1];
@@ -247,18 +258,32 @@ export default {
              removeAll( 'active', actArray );
             document.getElementById(name(newVal)).classList.add('active');
       }
+      function shiftSlideAndCarousel(index) {
+        
+      }
+      // NEXT AND PREVIOUS ARROWS FOR THE SLIDE
       for (let i = 0; i< gradient.length; i++) {
         gradient[i].addEventListener('click',function() {
           let id = document.querySelector('.category.active') ? document.querySelector('.category.active').id : document.querySelector('.category.interim').id;
           let index = parseInt(id.split('_')[1]);
 
-         if ( i == 0 && index != 0 ) {
+         if ( i == 0 && index != 0 ) { // click left - navigate to previous slide 
+            if ( index % 2 == 0 ) {
+                 completedTransform(id);
+            } else {
+                 completedTransform(id,false);
+            }
 
              let newIndex = (index - 1);
             shiftSlide(newIndex)
             shiftCarousel(newIndex);
           }
-          if (i == 1 && index != objectLength-2){
+          if (i == 1 && index != objectLength-2){ //right 
+           if ( index % 2 == 0 ) {
+                 completedTransform(id,false);
+            } else {
+                 completedTransform(id);
+            }
             let newIndex = (index + 1);
             shiftSlide(newIndex)
             shiftCarousel(newIndex);
@@ -266,10 +291,30 @@ export default {
           }
         })
       }
-      // Text slideshow that changes according to the active post
+    function scrollofY() {
+      return window.pageYOffset ||
+          document.documentElement.scrollTop ||
+          document.body.scrollTop ||
+          0;
+    }
+      function resizeTrackPosition() {
+        var scrollPos = scrollofY();
+        for (var prop in masterContainer ) {
+          let diff = masterContainer[prop][1] - scrollPos;
+          if (diff >= 0 ) {
+            if ( document.getElementById(prop).classList.contains('even')) {
+
+            }
+          }
+        }
+
+
+      }
+
+      // Text slideshow that shifts according to the active post
       var actArray = document.getElementsByClassName("active");
       var intArray = document.getElementsByClassName("interim");
-      var fixedHeader = document.getElementById("fixedHeader");
+ 
       var raf =
         window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
@@ -287,6 +332,7 @@ export default {
       window.addEventListener("resize", function() {
         if (raf) {
           // Recalculate Image and container dimensions
+          elDimensions();
         resetPostTrans();
 
         }
@@ -296,7 +342,7 @@ export default {
           // Run code here, resizing has "stopped"
           if (raf) {
           elDimensions();
-
+          activeElementTracking();
         resetPostTrans();
 
           }
@@ -329,9 +375,7 @@ export default {
                 translationX =[ 0.5*(3*txtElWidth - window.innerWidth) + carouselMargin*3]*(-1) - i*(txtElWidth + carouselMargin*2);
               }
 
-               
-
-              fixedHeader.style.transform =
+                fixedHeader.style.transform =
                 "translate3d(" + translationX + "px, 0, 0)";
               const featureNav = document.querySelectorAll(".feature-nav");
               for (let j = 0; j < featureNav.length; j++) {
@@ -376,7 +420,7 @@ export default {
 
       //IIFE & triggered onscroll
       var activeElementTracking;
-      (activeElementTracking = function(largestContainer) {
+      (activeElementTracking = function() {
         var scrollPos =
           window.pageYOffset ||
           document.documentElement.scrollTop ||
@@ -426,7 +470,7 @@ export default {
           }
           removeAll("interim", intArray);
         }
-      })(document.querySelector("#largest-container"));
+      })();
     }
   },
   updated() {

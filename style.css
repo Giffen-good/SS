@@ -1,13 +1,11 @@
 /*
-Theme Name: WP REST Theme
-Theme URI: http://gilbert.pellegrom.me
-Author: Gilbert Pellegrom
-Author URI: http://gilbert.pellegrom.me
-Description: A theme powered by the WordPress REST API and Vue.js
+Theme Name: stef vue JS
+Description: A theme modified from wp rest theme by Gilbert Pellegrom => http://gilbert.pellegrom.me
 Version: 1.0.0
 License: MIT
 */
 html {font-size: 16px}
+body, html {overflow-x: hidden;}
 #app {
 	font-family: "NeueHaas", sans-serif;
 	-webkit-font-smoothing: antialiased;
@@ -39,6 +37,10 @@ html {font-size: 16px}
   img:hover + .hov, .hov:hover {
 	  opacity:1;
   }
+
+  article h6 {
+    margin-top:0
+  }
   a:hover .hov2 {
 	  opacity:0.25;
   }
@@ -62,8 +64,14 @@ html {font-size: 16px}
 	  object-fit: cover;
 	  margin:0 40px;
   
-   height:60vh;
+   height:50vh;
    
+  }
+  @media screen and (min-width:1400px) {
+    .img-obj {
+       height:60vh;
+
+    }
   }
   .little-container div:first-child .img-obj {
     margin-left:80px;
@@ -1077,8 +1085,13 @@ li:last-child .nav-link {
 .gradient-right {
   right:0;
 }
+a.toKids:hover > div,
 a:hover, a:hover > p {
   opacity:0.62;
+}
+
+a.toKids:hover {
+  opacity:1;
 }
 .little-container a:hover {
   opacity:1;
@@ -1118,6 +1131,7 @@ h6 {margin-bottom:4px}
 .loader h2 {
   font-size:4rem;
   margin-bottom: 0;
+  margin-top: 0;
   line-height: 0.7;
 
 }

@@ -25,7 +25,7 @@ export default {
     p.big-toe {
         line-height: 1.2rem;
         text-align: left;
-        padding: 0.7rem 0 0.7rem 0;
+        padding: 0.82rem 0 0.82rem 0;
     }
 
 </style>

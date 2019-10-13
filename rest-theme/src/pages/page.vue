@@ -13,7 +13,7 @@
 
                 <div v-if="(isPost)">
                 <div v-for="post in posts" :key="post.ID"><postContent :post="post" v-if="compareBranch(post.link)"></postContent></div>
-                    <listItem class="pl1 pr1 dotted-line" v-for="post in posts" :key="post.ID" :post="post"></listItem>
+                    <listItem class="pr1 pl1 dotted-line toKids" v-for="post in posts" :key="post.ID" :post="post"></listItem>
                 </div>
                 <div v-else="(!isPost)">
                         <div class="page" v-if="(error)">

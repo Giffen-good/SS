@@ -1,5 +1,5 @@
 <template>
-        <a :href="post.link" sm="xw" class="x  Dcolor">
+        <a :href="post.link" sm="xw" class="x  Dcolor toKids">
             <div class="x1050 pr1">
                 <p class="big-toe fs4">{{ decode(post.title.rendered) }}</p>
             </div>
