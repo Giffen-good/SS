@@ -27,14 +27,26 @@
       </div>
 
       <div id="largest-container">
-        <Post
+            <div  
+            :id="`category_${key}`"
           v-for="(post, key ) in posts"
-          :post="post"
           :key="key"
-          :id="`category_${key}`"
           :class="`postEl category dt ${(key % 2 == 0) ?  'even' :  'odd' } index-${post.ID}`"
-          :data-src="post.post_title"
-        ></Post>
+          :data-src="post.post_title">
+            <div class="fixedEl">
+                  <div class="little-container dtc vam" >
+                    <div
+                      class="psr bgpc bgsc dtc vam"
+                      :href="post.guid"
+                      v-for="(img, i) in post.acf.image_carousel"
+                      :key="i"
+                    >
+                      <a  :href="post.guid"><img @load="onLoaded()" class="img-obj post-img" :src="img.image.sizes.large" /></a>
+                    </div>
+                  </div>
+              </div>
+    </div>
+        
       </div>
     </div>
   </main>
@@ -49,22 +61,36 @@ export default {
       error: false,
       isLoading: true,
       posts: [],
-      regPosts: []
+      regPosts: [],
+      isLoaded: [],
+      imgCount:0
     };
   },
-
+ 
   mounted() {
     this.getRegularPosts();
     this.getPosts();
+
     setTimeout(() => {
       this.isLoading = false;
+
       document.querySelector(".loader").classList.add("fadeout");
-    }, 1000);
+
+    }, 2000);
     // for Slideshow
       this.$forceUpdate();
   },
-
+  
   methods: {
+  
+   onLoaded() {
+
+      this.isLoaded.push(true);
+
+      if (this.isLoaded.length == this.imgCount) {
+        this.constructSlideshow();
+      }
+    },
     getPosts: function() {
       const wpPromisedResult = WordpressService.getPosts();
       wpPromisedResult
@@ -77,6 +103,10 @@ export default {
             console.log("PostSlug Found, no data");
           } else {
             this.posts = result.posts;
+            for (let i = 0; i< result.posts.length;i++) {
+            this.imgCount += result.posts[i].acf.image_carousel.length
+
+            }
           }
         })
         .catch(err => {
@@ -139,6 +169,8 @@ export default {
       
       // Get
       (elDimensions = function() {
+
+
         let largestContainer = document.querySelector("#largest-container");
         var masterHeight = 0;
         // start at one because first node is fixedHeader
@@ -177,10 +209,8 @@ export default {
               "px, 0, 0)";
           }
         }
-        //Splash page justifies the - window.innerHeight
         largestContainer.style.height =
           masterHeight+ "px";
-        // initial scroll position
         
         resetPostTrans();
       })();
@@ -192,13 +222,15 @@ export default {
           0;
         for (var prop in masterContainer) {
           let isPast = scrollPos > masterContainer[prop][1] ? true : false;
+
           //set posts to their "completed state" if the initial scroll position is past the post element
           if (masterContainer[prop][2] % 2 == 0 && isPast) {
+
             document.getElementById(prop).firstElementChild.style.transform =
               "translate3d(-" +
               (masterContainer[prop][0] - window.innerWidth) +
               "px, 0, 0)";
-          }
+          } 
         }
       }
       let gradient = document.querySelectorAll('.gradient');
@@ -225,12 +257,12 @@ export default {
              let newIndex = (index - 1);
             shiftSlide(newIndex)
             shiftCarousel(newIndex);
-            
           }
           if (i == 1 && index != objectLength-2){
             let newIndex = (index + 1);
             shiftSlide(newIndex)
             shiftCarousel(newIndex);
+
           }
         })
       }
@@ -255,7 +287,6 @@ export default {
       window.addEventListener("resize", function() {
         if (raf) {
           // Recalculate Image and container dimensions
-          elDimensions();
         resetPostTrans();
 
         }
@@ -264,8 +295,10 @@ export default {
         resizeTimer = setTimeout(function() {
           // Run code here, resizing has "stopped"
           if (raf) {
-            elDimensions();
-            activeElementTracking();
+          elDimensions();
+
+        resetPostTrans();
+
           }
         }, 250);
       });
@@ -314,7 +347,7 @@ export default {
                 .getElementById(catClasses[j])
                 .classList.add("active-carousel");
             }
-
+            resetPostTrans();
       }
 
 
@@ -391,7 +424,6 @@ export default {
               (objArray[0] - window.innerWidth - Math.abs(b * elMeta[1])) +
               "px, 0, 0)";
           }
-
           removeAll("interim", intArray);
         }
       })(document.querySelector("#largest-container"));
@@ -399,7 +431,6 @@ export default {
   },
   updated() {
     this.$nextTick(() => {
-     this.constructSlideshow();
     })
   }
 }
