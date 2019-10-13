@@ -261,6 +261,7 @@ export default {
       function shiftSlideAndCarousel(index) {
         
       }
+       
       // NEXT AND PREVIOUS ARROWS FOR THE SLIDE
       for (let i = 0; i< gradient.length; i++) {
         gradient[i].addEventListener('click',function() {
@@ -426,6 +427,10 @@ export default {
           document.documentElement.scrollTop ||
           document.body.scrollTop ||
           0;
+          var $body = document.body
+          if ($body.scrollLeft !== 0) {
+            $body.scrollLeft = 0;
+          }
         // CURRENT POST META
         let elMeta = checkVerticalArea(scrollPos);
         // get Current post properties
