@@ -145,6 +145,7 @@ export default {
       return txt.value;
     },
     constructSlideshow: function() {
+  
        // SCROLLING FEATURE
 
       // Get Array of WP-posts
@@ -324,6 +325,8 @@ export default {
         window.oRequestAnimationFrame;
       window.addEventListener("scroll", function() {
         if (raf) {
+//where the events take place
+if ( document.getElementById('category_0'))
           activeElementTracking();
         }
       });
@@ -333,19 +336,23 @@ export default {
       window.addEventListener("resize", function() {
         if (raf) {
           // Recalculate Image and container dimensions
-          elDimensions();
-        resetPostTrans();
+          if ( document.getElementById('category_0')){
 
+                    elDimensions();
+                  resetPostTrans();
+          }
         }
         clearTimeout(resizeTimer);
         // Debouncing function
         resizeTimer = setTimeout(function() {
           // Run code here, resizing has "stopped"
           if (raf) {
-          elDimensions();
-          activeElementTracking();
-        resetPostTrans();
-
+            if ( document.getElementById('category_0'))
+                        {
+                      elDimensions();
+                      activeElementTracking();
+                    resetPostTrans();
+            }
           }
         }, 250);
       });
@@ -426,8 +433,6 @@ export default {
           document.documentElement.scrollTop ||
           document.body.scrollTop ||
           0;
-          console.log(window.scrollLeft)
-            window.scrollLeft = 0;
         // CURRENT POST META
         let elMeta = checkVerticalArea(scrollPos);
         // get Current post properties
