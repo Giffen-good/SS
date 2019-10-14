@@ -196,21 +196,3 @@ function  markers_endpoint( $request_data ) {
         'callback' => 'markers_endpoint'
     ));
 });
-
-/**
- * ADD REST API Support for advanced custom fields
- */
-function console_log( $args) {
-    echo '<script>console.log('. json_encode($args) .')</script>';
-}
-function  colors_endpoint( $request_data ) {
-   $menu = wp_get_nav_menu_object('menu-1');
-   return array(get_field('primary_color', $menu), get_field('background_color', $menu), get_bloginfo('name'), get_bloginfo('description') );
-}
-
-    add_action( 'rest_api_init', function () {
-        register_rest_route( 'globals/v1', '/colors/', array(
-        'methods' => 'GET',
-        'callback' => 'colors_endpoint'
-    ));
-});

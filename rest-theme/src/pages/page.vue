@@ -25,7 +25,8 @@
                             <div class="entry-content" v-html="page.content.rendered">
                             </div>
                         </article>
-                        <div id="featured-image" v-html="page.featured_image.html" class="" sm="dn">
+                        <div id="featured-image" class="" sm="dn">
+                            <img :src="this.images[Math.floor(getRandomArbitrary(0,this.images.length))].image.sizes['large']" />
                         </div>
                 
                 </div>
@@ -55,7 +56,8 @@
                 },
                 isList:false,
                 isPost:false,
-                posts: []
+                posts: [],
+                images:[]
             }
         },
         components: {
@@ -64,15 +66,18 @@
         },
         
         mounted() {
-            console.log('ticked');
             this.checkList();
             this.checkPost();
             this.getPosts();
             this.getPage();
+            this.getContactImgs();
 
         },
 
         methods: {
+           getRandomArbitrary: function(min, max) {
+                return Math.random() * (max - min) + min;   
+            },
              decode: function(str) {
                var txt = document.createElement("textarea");
                 txt.innerHTML = str;
@@ -138,6 +143,32 @@
 
                     console.log("PostSlug Error!", wpPromisedResult);
                   });
+            },
+            getContactImgs: function() {
+                const wpPromisedResult = WordpressService.getContact();
+                wpPromisedResult.then(result => {
+                      console.log("PostSlug Found!", result.posts, result.totalPages);
+                      this.loading = false;
+
+                      if( result.posts.length == 0){
+                          this.error = true; //alternate content control too
+                          console.log("PostSlug Found, no data");
+                      }else{
+                          for (let i = 0; i < result.posts.length;i++) {
+                              if (result.posts[i].ID === this.page.id) {
+                                  this.images = result.posts[i].acf.image_carousel;
+                                  return;
+
+                              }
+                          }
+                      }
+
+                  })
+                  .catch(err => {
+                    this.error = true;
+
+                    console.log("PostSlug Error!", wpPromisedResult);
+                  });
             }
         }
 
@@ -190,6 +221,8 @@ main.content p {
     padding-bottom: 4rem;
     padding-right: 4rem;
     box-sizing: content-box;
+    max-width: 400px;
+    height:auto;
 }
 #app a.x p {
     margin-bottom:0;

@@ -70,13 +70,9 @@ export default {
   mounted() {
     this.getRegularPosts();
     this.getPosts();
-
-    setTimeout(() => {
       this.isLoading = false;
 
-      document.querySelector(".loader").classList.add("fadeout");
 
-    }, 2000);
   },
   
   methods: {
@@ -86,6 +82,10 @@ export default {
       this.isLoaded.push(true);
 
       if (this.isLoaded.length == this.imgCount) {
+        this.isLoading = false;
+      console.log('faded')
+      document.querySelector(".loader").classList.add("fadeout");
+
         this.constructSlideshow();
       }
     },
@@ -145,9 +145,8 @@ export default {
       return txt.value;
     },
     constructSlideshow: function() {
-  
+     
        // SCROLLING FEATURE
-
       // Get Array of WP-posts
       var postContainers = document.getElementsByClassName("postEl");
       var masterContainer = {

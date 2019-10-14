@@ -33,7 +33,12 @@ let wordpressService = {
         this.getFromAPI( path, resolve, reject );
     })
   },
-
+  getContact: function() {
+    let path = Config.root + "wp-json/contactpage/v1/post";
+    return new Promise((resolve, reject) => {
+        this.getFromAPI( path, resolve, reject );
+    })
+  },
   getPosts: function() {
     let path = Config.root + "wp-json/markers/v1/post";
     return new Promise((resolve, reject) => {

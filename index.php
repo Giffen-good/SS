@@ -71,8 +71,7 @@ echo '<style>:root {
               'menu_class'      => '',
               'fallback_cb'     => '__return_false',
               'items_wrap'      => '<ul class="x tdn">%3$s</ul>',
-              'depth'           => 2,
-              'walker'          => new WP_Bootstrap_Navwalker()
+              'depth'           => 2
             ) );
           ?>
 
@@ -86,6 +85,9 @@ echo '<style>:root {
       <h6 class="fs2 "><? echo get_bloginfo('description'); ?></h6>
     </div>
   </div>
+  <script>
+         document.querySelector('.loader').style.height = window.innerHeight + 'px';
+</script>
     <?
     }
       ?>
