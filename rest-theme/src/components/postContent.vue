@@ -1,7 +1,7 @@
 <template>
     <div class="Dcolor pt4">
     <div class="tal x xab mw800 xw pb1">
-        <h1 class="big-toe dib pr1 pb0 fs5">{{ decode(post.title.rendered) }}</h1><catLinks class="pt0" :post="post"></catLinks>
+        <h1 v-html="decode(post.title.rendered)" class="big-toe dib pr1 pb0 fs5"></h1><catLinks class="pt0" :post="post"></catLinks>
     </div>
     <div v-html="post.content.rendered" id="mainPostArea"  >
     </div>

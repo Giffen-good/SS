@@ -15,7 +15,7 @@
             :key="post.id"
           >
             <a :href="post.link">
-              <p class="big-t fs5">{{ decode(post.title.rendered) }}</p>
+              <p class="big-t fs5" v-html="decode(post.title.rendered)"></p>
             </a>
             <a
               class="db fs1"

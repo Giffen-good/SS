@@ -1,7 +1,7 @@
 <template>
         <a :href="post.link" sm="xw" class="x  Dcolor toKids">
             <div class="x1050 pr1">
-                <p class="big-toe fs4">{{ decode(post.title.rendered) }}</p>
+                <p v-html="decode(post.title.rendered)" class="big-toe fs4"></p>
             </div>
             <div sm="x10100 xw fsS reverso" class="x1050 x xac tal ttu fsS">
                 <div sm="x10100" class="x1050 pr1"><catLinks :post="post" /></div>
@@ -23,6 +23,9 @@ export default {
             return date.split('-')[0];
         },
         decode: function(str) {
+            function htmlEntities(str) {
+                return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+            }   
                var txt = document.createElement("textarea");
                 txt.innerHTML = str;
                 return txt.value;

@@ -1,6 +1,6 @@
 <template>
     <div class="dib">
-        <span v-for="(cat, key ) in post.categories_list"><a class="fs1" :href="cat.link">{{ decode(cat.cat_name)  }}</a>  
+        <span v-for="(cat, key ) in post.categories_list"><a v-html="decode(cat.cat_name)" class="fs1" :href="cat.link"></a>  
             <span class="fs1" v-if="(key != post.categories_list.length-1)"> & </span>
         </span>
     </div>
