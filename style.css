@@ -1010,6 +1010,9 @@ body, html {overflow-x: hidden; max-width: 100%}
 	display:inline-block;
 	text-align: right;
 }
+nav.x ul li.dn {
+  display:none
+}
 .nav-link {
 	padding:0;
 	padding-right:1rem;

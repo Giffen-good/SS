@@ -26,7 +26,7 @@
                             </div>
                         </article>
                         <div id="featured-image" class="" sm="dn">
-                            <img :src="this.images[Math.floor(getRandomArbitrary(0,this.images.length))].image.sizes['large']" />
+                            <img v-if="this.images[Math.floor(getRandomArbitrary(0,this.images.length))]" :src="this.images[Math.floor(getRandomArbitrary(0,this.images.length))].image.sizes['large']" />
                         </div>
                 
                 </div>
@@ -73,7 +73,11 @@
             this.getContactImgs();
 
         },
-
+        watch: {
+                $route (to, from){
+                    console.log([this.$route, 'routechange']);
+                    }
+            },
         methods: {
            getRandomArbitrary: function(min, max) {
                 return Math.random() * (max - min) + min;   
@@ -171,7 +175,7 @@
                   });
             }
         }
-
+       
     }
 </script>
 <style lang="scss" >
