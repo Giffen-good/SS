@@ -78,6 +78,23 @@ echo '<style>:root {
         </div>
       </nav>
     </header>
+    <? if (is_page(6)) {
+
+?>
+<script>
+       document.getElementById('menu-item-47').classList.add('dn');
+                document.getElementById('menu-item-122').classList.remove('dn');
+    </script>
+    <?
+    } else {
+      ?>
+<script>
+                document.getElementById('menu-item-47').classList.remove('dn');
+                document.getElementById('menu-item-122').classList.add('dn');
+    </script>
+    <?php 
+              }
+              ?>
     <? if (is_home() || is_front_page() ) { ?>
     <div class="z4 Dcolor-r loader">
     <div class="psa c10 ttu cxy">
@@ -86,7 +103,7 @@ echo '<style>:root {
     </div>
   </div>
   <script>
-         document.querySelector('.loader').style.height = window.innerHeight + 'px';
+document.querySelector('.loader').style.height = window.innerHeight + 'px';
 </script>
     <?
     }
