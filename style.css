@@ -65,8 +65,8 @@ body, html {overflow-x: hidden; max-width: 100%}
   .img-obj {
 	  max-width:60vw;
 	  max-width: 1000px;
-	  -o-object-fit: cover;
-	     object-fit: cover;
+	  -o-object-fit: contain;
+	     object-fit: contain;
 	  margin:0 40px;
   
    height:50vh;
