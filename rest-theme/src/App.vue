@@ -10,8 +10,7 @@ import WordpressService from './services/wordpress';
 export default {
     name: "app",
     
-     mounted() {
-            console.log(['ee',this.$route.path == '/list/' ]);
+     created() {
             if (this.$route.path == '/list/' ) {
                 console.log(document.getElementById('menu-item-47'))
                 document.getElementById('menu-item-47').classList.add('dn');
