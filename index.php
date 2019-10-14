@@ -83,14 +83,14 @@ echo '<style>:root {
 ?>
 <script>
        document.getElementById('menu-item-47').classList.add('dn');
-                document.getElementById('menu-item-122').classList.remove('dn');
+                document.getElementById('menu-item-106').classList.remove('dn');
     </script>
     <?
     } else {
       ?>
 <script>
                 document.getElementById('menu-item-47').classList.remove('dn');
-                document.getElementById('menu-item-122').classList.add('dn');
+                document.getElementById('menu-item-106').classList.add('dn');
     </script>
     <?php 
               }
