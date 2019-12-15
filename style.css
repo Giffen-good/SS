@@ -1135,7 +1135,7 @@ h1,p {
   margin-top:0;
 }
 
-h1.big-toe, #app .big-t {
+.big-toe, h1.big-toe, #app .big-t {
   font-family:"Junicode";
 } 
 .feature-nav .fs1 {

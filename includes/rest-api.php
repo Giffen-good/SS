@@ -26,44 +26,44 @@ add_action( "rest_api_init", function () {
     $posts_post_types = array_merge( array( "post", "posts" ), $post_types);
     $pages_posts_post_types = array_merge(array( "page", "pages", "post", "posts" ), $post_types);
 
-    // Add date_rendered
-    register_rest_field( $posts_post_types, "date_rendered", array(
-        "get_callback" => function( $post ) {
-            return get_the_date('', $post->id);
-        },
-        "schema" => array(
-            "description" => __( "Pretty Date." ),
-            "type"        => "string"
-        ),
-    ) );
+    // // Add date_rendered
+    // register_rest_field( $posts_post_types, "date_rendered", array(
+    //     "get_callback" => function( $post ) {
+    //         return get_the_date('', $post->id);
+    //     },
+    //     "schema" => array(
+    //         "description" => __( "Pretty Date." ),
+    //         "type"        => "string"
+    //     ),
+    // ) );
 
 
-    // Add date_link_path
-    register_rest_field( $posts_post_types, "date_archive", array(
-        "get_callback" => function( $post ) {
-            $year = get_the_date('Y', $post->id);;
-            $month = get_the_date('m', $post->id);;
+    // // Add date_link_path
+    // register_rest_field( $posts_post_types, "date_archive", array(
+    //     "get_callback" => function( $post ) {
+    //         $year = get_the_date('Y', $post->id);;
+    //         $month = get_the_date('m', $post->id);;
 
-            $url=get_month_link( $year, $month);
+    //         $url=get_month_link( $year, $month);
 
-            return array( 'path'=> str_replace(  home_url() , "", $url ) , 'link'=>$url, 'year'=>$year, 'month'=>$month );
-        },
-        "schema" => array(
-            "description" => __( "Date Path for VueRouter" ),
-            "type"        => "string"
-        ),
-    ) );
+    //         return array( 'path'=> str_replace(  home_url() , "", $url ) , 'link'=>$url, 'year'=>$year, 'month'=>$month );
+    //     },
+    //     "schema" => array(
+    //         "description" => __( "Date Path for VueRouter" ),
+    //         "type"        => "string"
+    //     ),
+    // ) );
 
-    // Add permalink:
-    register_rest_field( $pages_posts_post_types, "permalink_path", array(
-        "get_callback" => function( $post ) {
-            return str_replace(  home_url() , "", get_the_permalink($post->id) );
-        },
-        "schema" => array(
-            "description" => __( "Permalink Path" ),
-            "type"        => "string"
-        ),
-    ) );
+    // // Add permalink:
+    // register_rest_field( $pages_posts_post_types, "permalink_path", array(
+    //     "get_callback" => function( $post ) {
+    //         return str_replace(  home_url() , "", get_the_permalink($post->id) );
+    //     },
+    //     "schema" => array(
+    //         "description" => __( "Permalink Path" ),
+    //         "type"        => "string"
+    //     ),
+    // ) );
 
     // Add permalink to terms:
     register_rest_field( array('category','term'), "permalink_path", array(

@@ -6,7 +6,7 @@ include_once('includes/localize.php');
 include_once('includes/vue-router.php');
 include_once('includes/rest-api.php');
 
-
+define('UPLOAD', 'wp-content/uploads');
 
 function  contacts_endpoint( $request_data ) {
     $args = array(

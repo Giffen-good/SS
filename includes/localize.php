@@ -39,7 +39,6 @@ function rest_theme_scripts() {
 
 add_action( 'wp_enqueue_scripts', 'rest_theme_scripts', 10 );
 
-	wp_enqueue_script( 'rest-theme-vue', get_template_directory_uri() . '/rest-theme/dist/build.js', array(), '1.0.0', true );
 
 
 /**
