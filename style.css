@@ -18,6 +18,7 @@ body, html {overflow-x: hidden; max-width: 100%}
 	color: #2c3e50;
   }
   #largest-container {
+
     overflow-x: hidden;
   }
   .menu-item {
@@ -67,7 +68,7 @@ body, html {overflow-x: hidden; max-width: 100%}
 	  max-width: 1000px;
 	  -o-object-fit: contain;
 	     object-fit: contain;
-	  margin:0 40px;
+	  margin:0 60px;
   
    height:50vh;
    
@@ -85,7 +86,7 @@ body, html {overflow-x: hidden; max-width: 100%}
     }
   }
   .little-container div:first-child .img-obj {
-    margin-left:80px;
+    margin-left:120px;
   }
   #fixedHeader {-webkit-transform:translateZ(0);transform:translateZ(0);position: fixed;bottom: 0;}
   h1,h2,h3,h4,h5,h6,header {
@@ -1063,6 +1064,7 @@ li:last-child .nav-link {
 
 
 .little-container.vam {
+	padding-bottom:87px;
 	vertical-align: middle;
   display: block;
   max-width: initial;
@@ -1341,15 +1343,18 @@ a {
   margin-bottom: 5rem;
 }
 
-
-
+#mainPostArea > p:first-child, #mainPostArea > h3:first-child {
+    margin-left: 20px;
+    line-height: 1.4;
+    margin-top: -5px;
+}
+article h3 {
+    margin-top: 30px;
+}
 
 @media screen and (max-width:768px) {
   article {
     padding-bottom:2rem;
-  }
-  article h3 {
-    margin-top:2rem;
   }
   a.navbar-brand {
     padding:0;

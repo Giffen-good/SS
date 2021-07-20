@@ -18,9 +18,11 @@
               <p class="big-t fs5" v-html="decode(post.title.rendered)"></p>
             </a>
             <a
-              class="db fs1"
-              :href="post.categories_list[0].link"
-            >{{post.categories_list[0].cat_name}}</a>
+              v-for="(cat, index) in post.categories_list"
+              class=" fs1"
+             :key="index" 
+	     :href="cat.link"
+            >{{cat.cat_name}}<span v-if='index + 1 < post.categories_list.length'> & </span> </a>
           </div>
           <div class="feature-nav dib last-el"></div>
         </div>
@@ -76,7 +78,6 @@ export default {
   },
   
   methods: {
-  
    onLoaded() {
 
       this.isLoaded.push(true);
